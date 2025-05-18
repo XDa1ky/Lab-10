@@ -121,7 +121,7 @@ def main():
     speak("Голосовой ассистент готов.")
     while True:
         try:
-            cmd = recognize_speech()
+            cmd = recognize_speech()    
             print(f"Команда: {cmd}")
 
             if "закрыть" in cmd or "выход" in cmd:

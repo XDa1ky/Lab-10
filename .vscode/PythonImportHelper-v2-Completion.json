@@ -155,7 +155,7 @@
         "kind": 2,
         "importPath": "main",
         "description": "main",
-        "peekOfCode": "def main():\n    speak(\"Голосовой ассистент готов.\")\n    while True:\n        try:\n            cmd = recognize_speech()\n            print(f\"Команда: {cmd}\")\n            if \"закрыть\" in cmd or \"выход\" in cmd:\n                speak(\"До встречи.\")\n                break\n            elif \"создать\" in cmd:",
+        "peekOfCode": "def main():\n    speak(\"Голосовой ассистент готов.\")\n    while True:\n        try:\n            cmd = recognize_speech()    \n            print(f\"Команда: {cmd}\")\n            if \"закрыть\" in cmd or \"выход\" in cmd:\n                speak(\"До встречи.\")\n                break\n            elif \"создать\" in cmd:",
         "detail": "main",
         "documentation": {}
     },
