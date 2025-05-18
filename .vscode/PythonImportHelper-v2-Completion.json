@@ -70,24 +70,6 @@
         "documentation": {}
     },
     {
-        "label": "json,",
-        "kind": 6,
-        "isExtraImport": true,
-        "importPath": "json.",
-        "description": "json.",
-        "detail": "json.",
-        "documentation": {}
-    },
-    {
-        "label": "pyttsx3,",
-        "kind": 6,
-        "isExtraImport": true,
-        "importPath": "pyttsx3.",
-        "description": "pyttsx3.",
-        "detail": "pyttsx3.",
-        "documentation": {}
-    },
-    {
         "label": "speak",
         "kind": 2,
         "importPath": "main",
@@ -220,51 +202,6 @@
         "description": "main",
         "peekOfCode": "current_user = None\ndef fetch_user():\n    global current_user\n    try:\n        resp = requests.get(\"https://randomuser.me/api/\", timeout=10)\n        resp.raise_for_status()\n        current_user = resp.json()[\"results\"][0]\n        speak(\"Пользователь создан.\")\n    except Exception as e:\n        speak(\"Ошибка при создании пользователя.\")",
         "detail": "main",
-        "documentation": {}
-    },
-    {
-        "label": "Speech",
-        "kind": 6,
-        "importPath": "main1",
-        "description": "main1",
-        "peekOfCode": "class Speech:\n    def __init__(self):\n        self.speaker = 0\n        self.tts = pyttsx3.init('sapi5')\n    def set_voice(self, speaker):\n        self.voices = self.tts.getProperty('voices')\n        for count, voice in enumerate(self.voices):\n            if count == 0:\n                print('0')\n                id = voice.id",
-        "detail": "main1",
-        "documentation": {}
-    },
-    {
-        "label": "Recognize",
-        "kind": 6,
-        "importPath": "main1",
-        "description": "main1",
-        "peekOfCode": "class Recognize:\n    def __init__(self):\n        model = vosk.Model('model_small')\n        self.record = vosk.KaldiRecognizer(model, 16000)\n        self.stream()\n    def stream(self):\n        pa = pyaudio.PyAudio()\n        self.stream = pa.open(format=pyaudio.paInt16,\n                         channels=1,\n                         rate=16000,",
-        "detail": "main1",
-        "documentation": {}
-    },
-    {
-        "label": "speak",
-        "kind": 2,
-        "importPath": "main1",
-        "description": "main1",
-        "peekOfCode": "def speak(text):\n    speech = Speech()\n    speech.text2voice(speaker=1, text=text)\nrec = Recognize()\ntext_gen = rec.listen()\nrec.stream.stop_stream()\nspeak('Starting')\ntime.sleep(0.5)\nrec.stream.start_stream()\nfor text in text_gen:",
-        "detail": "main1",
-        "documentation": {}
-    },
-    {
-        "label": "rec",
-        "kind": 5,
-        "importPath": "main1",
-        "description": "main1",
-        "peekOfCode": "rec = Recognize()\ntext_gen = rec.listen()\nrec.stream.stop_stream()\nspeak('Starting')\ntime.sleep(0.5)\nrec.stream.start_stream()\nfor text in text_gen:\n    if text == 'закрыть':\n        speak('Бывай, ихтиандр')\n        quit()",
-        "detail": "main1",
-        "documentation": {}
-    },
-    {
-        "label": "text_gen",
-        "kind": 5,
-        "importPath": "main1",
-        "description": "main1",
-        "peekOfCode": "text_gen = rec.listen()\nrec.stream.stop_stream()\nspeak('Starting')\ntime.sleep(0.5)\nrec.stream.start_stream()\nfor text in text_gen:\n    if text == 'закрыть':\n        speak('Бывай, ихтиандр')\n        quit()\n    else:",
-        "detail": "main1",
         "documentation": {}
     }
 ]
