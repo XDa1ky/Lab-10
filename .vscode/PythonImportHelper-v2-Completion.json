@@ -1,0 +1,270 @@
+[
+    {
+        "label": "os",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "os",
+        "description": "os",
+        "detail": "os",
+        "documentation": {}
+    },
+    {
+        "label": "json",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "json",
+        "description": "json",
+        "detail": "json",
+        "documentation": {}
+    },
+    {
+        "label": "datetime",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "datetime",
+        "description": "datetime",
+        "detail": "datetime",
+        "documentation": {}
+    },
+    {
+        "label": "requests",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "requests",
+        "description": "requests",
+        "detail": "requests",
+        "documentation": {}
+    },
+    {
+        "label": "pyttsx3",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "pyttsx3",
+        "description": "pyttsx3",
+        "detail": "pyttsx3",
+        "documentation": {}
+    },
+    {
+        "label": "pyaudio",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "pyaudio",
+        "description": "pyaudio",
+        "detail": "pyaudio",
+        "documentation": {}
+    },
+    {
+        "label": "Model",
+        "importPath": "vosk",
+        "description": "vosk",
+        "isExtraImport": true,
+        "detail": "vosk",
+        "documentation": {}
+    },
+    {
+        "label": "KaldiRecognizer",
+        "importPath": "vosk",
+        "description": "vosk",
+        "isExtraImport": true,
+        "detail": "vosk",
+        "documentation": {}
+    },
+    {
+        "label": "json,",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "json.",
+        "description": "json.",
+        "detail": "json.",
+        "documentation": {}
+    },
+    {
+        "label": "pyttsx3,",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "pyttsx3.",
+        "description": "pyttsx3.",
+        "detail": "pyttsx3.",
+        "documentation": {}
+    },
+    {
+        "label": "speak",
+        "kind": 2,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "def speak(text: str):\n    \"\"\"Озвучить текст и вывести в консоль.\"\"\"\n    print(f\"Ассистент: {text}\")\n    engine.say(text)\n    engine.runAndWait()\n# ====== ФУНКЦИЯ РАСПОЗНАВАНИЯ С ГРАММАТИКОЙ ======\ndef recognize_speech() -> str:\n    \"\"\"\n    Слушает микрофон и возвращает распознанную команду из списка GRAMMAR.\n    \"\"\"",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "recognize_speech",
+        "kind": 2,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "def recognize_speech() -> str:\n    \"\"\"\n    Слушает микрофон и возвращает распознанную команду из списка GRAMMAR.\n    \"\"\"\n    model = Model(MODEL_PATH)\n    recognizer = KaldiRecognizer(model, RATE, json.dumps(GRAMMAR))\n    pa = pyaudio.PyAudio()\n    stream = pa.open(format=pyaudio.paInt16,\n                     channels=1,\n                     rate=RATE,",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "fetch_user",
+        "kind": 2,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "def fetch_user():\n    global current_user\n    try:\n        resp = requests.get(\"https://randomuser.me/api/\", timeout=10)\n        resp.raise_for_status()\n        current_user = resp.json()[\"results\"][0]\n        speak(\"Пользователь создан.\")\n    except Exception as e:\n        speak(\"Ошибка при создании пользователя.\")\n        print(\"Request error:\", e)",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "say_name",
+        "kind": 2,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "def say_name():\n    if not current_user:\n        speak(\"Сначала создайте пользователя.\")\n        return\n    n = current_user[\"name\"]\n    speak(f\"{n['title']} {n['first']} {n['last']}\")\ndef say_country():\n    if not current_user:\n        speak(\"Сначала создайте пользователя.\")\n        return",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "say_country",
+        "kind": 2,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "def say_country():\n    if not current_user:\n        speak(\"Сначала создайте пользователя.\")\n        return\n    speak(current_user[\"location\"][\"country\"])\ndef say_profile():\n    if not current_user:\n        speak(\"Сначала создайте пользователя.\")\n        return\n    n = current_user[\"name\"]",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "say_profile",
+        "kind": 2,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "def say_profile():\n    if not current_user:\n        speak(\"Сначала создайте пользователя.\")\n        return\n    n = current_user[\"name\"]\n    age = current_user[\"dob\"][\"age\"]\n    email = current_user[\"email\"]\n    city = current_user[\"location\"][\"city\"]\n    country = current_user[\"location\"][\"country\"]\n    text = f\"{n['title']} {n['first']} {n['last']}, {age} лет, email {email}, город {city}, страна {country}\"",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "save_picture",
+        "kind": 2,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "def save_picture():\n    if not current_user:\n        speak(\"Сначала создайте пользователя.\")\n        return\n    try:\n        url = current_user[\"picture\"][\"large\"]\n        ext = os.path.splitext(url)[-1] or \".jpg\"\n        filename = f\"user_{datetime.datetime.now().strftime('%Y%m%d_%H%M%S')}{ext}\"\n        img = requests.get(url, timeout=10)\n        img.raise_for_status()",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "main",
+        "kind": 2,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "def main():\n    speak(\"Голосовой ассистент готов.\")\n    while True:\n        try:\n            cmd = recognize_speech()\n            print(f\"Команда: {cmd}\")\n            if \"закрыть\" in cmd or \"выход\" in cmd:\n                speak(\"До встречи.\")\n                break\n            elif \"создать\" in cmd:",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "MODEL_PATH",
+        "kind": 5,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "MODEL_PATH = \"model_small\"  # Папка с вашей моделью Vosk\nRATE = 16000                               # Частота дискретизации\nCHUNK = 8000                               # Размер буфера для чтения микрофона\nGRAMMAR = [\"закрыть\", \"выход\", \"создать\", \"имя\", \"страна\", \"анкета\", \"сохранить\"]  # Разрешённые команды\n# ====== ПРОВЕРКА НАЛИЧИЯ МОДЕЛИ ======\nif not os.path.isdir(MODEL_PATH):\n    print(f\"Ошибка: папка модели не найдена по пути: {MODEL_PATH}\")\n    print(\"Скачайте и распакуйте модель Vosk и укажите правильный путь в MODEL_PATH.\")\n    exit(1)\n# ====== ИНИЦИАЛИЗАЦИЯ TTS ======",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "RATE",
+        "kind": 5,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "RATE = 16000                               # Частота дискретизации\nCHUNK = 8000                               # Размер буфера для чтения микрофона\nGRAMMAR = [\"закрыть\", \"выход\", \"создать\", \"имя\", \"страна\", \"анкета\", \"сохранить\"]  # Разрешённые команды\n# ====== ПРОВЕРКА НАЛИЧИЯ МОДЕЛИ ======\nif not os.path.isdir(MODEL_PATH):\n    print(f\"Ошибка: папка модели не найдена по пути: {MODEL_PATH}\")\n    print(\"Скачайте и распакуйте модель Vosk и укажите правильный путь в MODEL_PATH.\")\n    exit(1)\n# ====== ИНИЦИАЛИЗАЦИЯ TTS ======\nengine = pyttsx3.init()",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "CHUNK",
+        "kind": 5,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "CHUNK = 8000                               # Размер буфера для чтения микрофона\nGRAMMAR = [\"закрыть\", \"выход\", \"создать\", \"имя\", \"страна\", \"анкета\", \"сохранить\"]  # Разрешённые команды\n# ====== ПРОВЕРКА НАЛИЧИЯ МОДЕЛИ ======\nif not os.path.isdir(MODEL_PATH):\n    print(f\"Ошибка: папка модели не найдена по пути: {MODEL_PATH}\")\n    print(\"Скачайте и распакуйте модель Vosk и укажите правильный путь в MODEL_PATH.\")\n    exit(1)\n# ====== ИНИЦИАЛИЗАЦИЯ TTS ======\nengine = pyttsx3.init()\nvoices = engine.getProperty('voices')",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "GRAMMAR",
+        "kind": 5,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "GRAMMAR = [\"закрыть\", \"выход\", \"создать\", \"имя\", \"страна\", \"анкета\", \"сохранить\"]  # Разрешённые команды\n# ====== ПРОВЕРКА НАЛИЧИЯ МОДЕЛИ ======\nif not os.path.isdir(MODEL_PATH):\n    print(f\"Ошибка: папка модели не найдена по пути: {MODEL_PATH}\")\n    print(\"Скачайте и распакуйте модель Vosk и укажите правильный путь в MODEL_PATH.\")\n    exit(1)\n# ====== ИНИЦИАЛИЗАЦИЯ TTS ======\nengine = pyttsx3.init()\nvoices = engine.getProperty('voices')\nif voices:",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "engine",
+        "kind": 5,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "engine = pyttsx3.init()\nvoices = engine.getProperty('voices')\nif voices:\n    engine.setProperty('voice', voices[0].id)\ndef speak(text: str):\n    \"\"\"Озвучить текст и вывести в консоль.\"\"\"\n    print(f\"Ассистент: {text}\")\n    engine.say(text)\n    engine.runAndWait()\n# ====== ФУНКЦИЯ РАСПОЗНАВАНИЯ С ГРАММАТИКОЙ ======",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "voices",
+        "kind": 5,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "voices = engine.getProperty('voices')\nif voices:\n    engine.setProperty('voice', voices[0].id)\ndef speak(text: str):\n    \"\"\"Озвучить текст и вывести в консоль.\"\"\"\n    print(f\"Ассистент: {text}\")\n    engine.say(text)\n    engine.runAndWait()\n# ====== ФУНКЦИЯ РАСПОЗНАВАНИЯ С ГРАММАТИКОЙ ======\ndef recognize_speech() -> str:",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "current_user",
+        "kind": 5,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "current_user = None\ndef fetch_user():\n    global current_user\n    try:\n        resp = requests.get(\"https://randomuser.me/api/\", timeout=10)\n        resp.raise_for_status()\n        current_user = resp.json()[\"results\"][0]\n        speak(\"Пользователь создан.\")\n    except Exception as e:\n        speak(\"Ошибка при создании пользователя.\")",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "Speech",
+        "kind": 6,
+        "importPath": "main1",
+        "description": "main1",
+        "peekOfCode": "class Speech:\n    def __init__(self):\n        self.speaker = 0\n        self.tts = pyttsx3.init('sapi5')\n    def set_voice(self, speaker):\n        self.voices = self.tts.getProperty('voices')\n        for count, voice in enumerate(self.voices):\n            if count == 0:\n                print('0')\n                id = voice.id",
+        "detail": "main1",
+        "documentation": {}
+    },
+    {
+        "label": "Recognize",
+        "kind": 6,
+        "importPath": "main1",
+        "description": "main1",
+        "peekOfCode": "class Recognize:\n    def __init__(self):\n        model = vosk.Model('model_small')\n        self.record = vosk.KaldiRecognizer(model, 16000)\n        self.stream()\n    def stream(self):\n        pa = pyaudio.PyAudio()\n        self.stream = pa.open(format=pyaudio.paInt16,\n                         channels=1,\n                         rate=16000,",
+        "detail": "main1",
+        "documentation": {}
+    },
+    {
+        "label": "speak",
+        "kind": 2,
+        "importPath": "main1",
+        "description": "main1",
+        "peekOfCode": "def speak(text):\n    speech = Speech()\n    speech.text2voice(speaker=1, text=text)\nrec = Recognize()\ntext_gen = rec.listen()\nrec.stream.stop_stream()\nspeak('Starting')\ntime.sleep(0.5)\nrec.stream.start_stream()\nfor text in text_gen:",
+        "detail": "main1",
+        "documentation": {}
+    },
+    {
+        "label": "rec",
+        "kind": 5,
+        "importPath": "main1",
+        "description": "main1",
+        "peekOfCode": "rec = Recognize()\ntext_gen = rec.listen()\nrec.stream.stop_stream()\nspeak('Starting')\ntime.sleep(0.5)\nrec.stream.start_stream()\nfor text in text_gen:\n    if text == 'закрыть':\n        speak('Бывай, ихтиандр')\n        quit()",
+        "detail": "main1",
+        "documentation": {}
+    },
+    {
+        "label": "text_gen",
+        "kind": 5,
+        "importPath": "main1",
+        "description": "main1",
+        "peekOfCode": "text_gen = rec.listen()\nrec.stream.stop_stream()\nspeak('Starting')\ntime.sleep(0.5)\nrec.stream.start_stream()\nfor text in text_gen:\n    if text == 'закрыть':\n        speak('Бывай, ихтиандр')\n        quit()\n    else:",
+        "detail": "main1",
+        "documentation": {}
+    }
+]
